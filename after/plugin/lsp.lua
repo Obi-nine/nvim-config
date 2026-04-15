@@ -18,78 +18,99 @@ end)
 require('mason').setup({})
 
 require('mason-lspconfig').setup({
-    ensure_installed = {
-        'ts_ls',
-        'rust_analyzer',
-        'intelephense',
-        'html',
-        'cssls',
-        'svelte',
-        'arduino_language_server',
-        'pyright',
-    },
-    handlers = {
-        lsp_zero.default_setup,
+  ensure_installed = {
+    'ts_ls',
+    'rust_analyzer',
+    'intelephense',
+    'html',
+    'cssls',
+    'svelte',
+    'arduino_language_server',
+    'pyright',
+    'docker_compose_language_service',
+    'dockerls',
+    'eslint',
+    'jsonls',
+    'lua_ls',
+    'somesass_ls',
+    'tailwindcss',
+    'tinymist',
+    'yamlls',
+  },
+  handlers = {
+    lsp_zero.default_setup,
 
-        lua_ls = function()
-            local lua_opts = lsp_zero.nvim_lua_ls()
-            require('lspconfig').lua_ls.setup(vim.tbl_deep_extend('force', lua_opts, {
-                settings = {
-                    Lua = {
-                        diagnostics = {
-                            globals = { 'vim' }
-                        }
-                    }
-                }
-            }))
-        end,
-    }
+    lua_ls = function()
+      local lua_opts = lsp_zero.nvim_lua_ls()
+      require('lspconfig').lua_ls.setup(vim.tbl_deep_extend('force', lua_opts, {
+        settings = {
+          Lua = {
+            diagnostics = {
+              globals = { 'vim' }
+            }
+          }
+        }
+      }))
+    end,
+  }
+})
+
+require('mason-tool-installer').setup({
+    ensure_installed = {
+        'eslint_d',
+        'php-cs-fixer',
+        'prettier',
+        'pretty-php',
+        'pyproject-fmt',
+    },
+    auto_update = false,
+    run_on_start = true,
 })
 
 vim.lsp.config('intelephense', {
-    settings = {
-        intelephense = {
-            telemetry = { enabled = false },
-            stubs = {
-                "bcmath", "bz2", "calendar", "Core", "curl", "date",
-                "dba", "dom", "enchant", "fileinfo", "filter", "ftp",
-                "gd", "gettext", "hash", "iconv", "imap", "intl",
-                "json", "ldap", "libxml", "mbstring", "mcrypt",
-                "mysql", "mysqli", "password", "pcntl", "pcre",
-                "PDO", "pdo_mysql", "Phar", "readline", "recode",
-                "Reflection", "regex", "session", "SimpleXML",
-                "soap", "sockets", "sodium", "SPL", "standard",
-                "superglobals", "sysvsem", "sysvshm", "tokenizer",
-                "xml", "xdebug", "xmlreader", "xmlwriter", "yaml",
-                "zip", "zlib", "wordpress", "woocommerce", "acf-pro",
-                "wordpress-globals", "wp-cli", "polylang"
-            },
-            environment = {
-                includePaths = {
-                    vim.fn.expand('~/.composer/vendor/php-stubs/wordpress-stubs'),
-                    vim.fn.expand('~/.composer/vendor/php-stubs/woocommerce-stubs'),
-                    vim.fn.expand('~/.composer/vendor/php-stubs/wordpress-globals'),
-                    vim.fn.expand('~/.composer/vendor/php-stubs/acf-pro-stubs'),
-                    vim.fn.expand('~/.composer/vendor/php-stubs/wp-cli-stubs'),
-                }
-            },
-            files = { maxSize = 5000000 }
+  settings = {
+    intelephense = {
+      telemetry = { enabled = false },
+      stubs = {
+        "bcmath", "bz2", "calendar", "Core", "curl", "date",
+        "dba", "dom", "enchant", "fileinfo", "filter", "ftp",
+        "gd", "gettext", "hash", "iconv", "imap", "intl",
+        "json", "ldap", "libxml", "mbstring", "mcrypt",
+        "mysql", "mysqli", "password", "pcntl", "pcre",
+        "PDO", "pdo_mysql", "Phar", "readline", "recode",
+        "Reflection", "regex", "session", "SimpleXML",
+        "soap", "sockets", "sodium", "SPL", "standard",
+        "superglobals", "sysvsem", "sysvshm", "tokenizer",
+        "xml", "xdebug", "xmlreader", "xmlwriter", "yaml",
+        "zip", "zlib", "wordpress", "woocommerce", "acf-pro",
+        "wordpress-globals", "wp-cli", "polylang"
+      },
+      environment = {
+        includePaths = {
+          vim.fn.expand('~/.composer/vendor/php-stubs/wordpress-stubs'),
+          vim.fn.expand('~/.composer/vendor/php-stubs/woocommerce-stubs'),
+          vim.fn.expand('~/.composer/vendor/php-stubs/wordpress-globals'),
+          vim.fn.expand('~/.composer/vendor/php-stubs/acf-pro-stubs'),
+          vim.fn.expand('~/.composer/vendor/php-stubs/wp-cli-stubs'),
         }
+      },
+      files = { maxSize = 5000000 }
     }
+  }
 })
 
 vim.lsp.config('arduino_language_server', {
-    cmd = {
-        "arduino-language-server",
-        "-cli-config", vim.fn.expand("~/.arduino15/arduino-cli.yaml"),
-        "-fqbn", "arduino:avr:uno",
-        "-cli", "arduino-cli",
-        "-clangd", "clangd"
-    }
+  cmd = {
+    "arduino-language-server",
+    "-cli-config", vim.fn.expand("~/.arduino15/arduino-cli.yaml"),
+    "-fqbn", "arduino:avr:uno",
+    "-cli", "arduino-cli",
+    "-clangd", "clangd"
+  }
 })
 
 vim.lsp.config('svelte', {
-    filetypes = { "svelte" }
+  filetypes = { "svelte" }
 })
 
 

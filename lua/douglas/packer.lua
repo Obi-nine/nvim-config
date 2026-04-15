@@ -43,6 +43,7 @@ return require('packer').startup(function(use)
       {'neovim/nvim-lspconfig'},
       {'williamboman/mason.nvim'},
       {'williamboman/mason-lspconfig.nvim'},
+      {'WhoIsSethDaniel/mason-tool-installer.nvim'},
       {'hrsh7th/nvim-cmp'},
       {'hrsh7th/cmp-nvim-lsp'}, 
       {'hrsh7th/cmp-buffer'},
